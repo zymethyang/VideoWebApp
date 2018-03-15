@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
     constructor(props) {
@@ -10,7 +11,6 @@ class Header extends Component {
     }
     handleChange(event) {
         this.setState({ value: event.target.value });
-        console.log(this.state);
     }
 
     handleSubmit(event) {
@@ -23,7 +23,9 @@ class Header extends Component {
                 <div className="nav-wrapper">
                     <div className="row">
                         <div className="col l2">
-                            <i className="fas fa-film" style={{ fontSize: 50 }}></i>
+                            <Link to='/'>
+                                <i className="fas fa-film" style={{ fontSize: 50 }}></i>
+                            </Link>
                         </div>
                         <div className="col l6">
                             <input value={this.state.value} onChange={this.handleChange} type="text" />

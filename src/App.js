@@ -5,6 +5,8 @@ import HomePage from './pages/homePage';
 import ViewPage from './pages/viewPage';
 import PageNotFound from './pages/pageNotFound';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import * as act from './';
+import { connect } from 'react-redux';
 
 class App extends Component {
   render() {
@@ -24,4 +26,20 @@ class App extends Component {
   }
 }
 
-export default App;
+
+
+const mapStateToProps = state => {
+  return {
+    
+  }
+}
+
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
