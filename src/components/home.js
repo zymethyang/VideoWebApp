@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import * as constants from '../constants/data';
 import * as functions from './home/functions';
-import { Route, NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
     render() {
         var newUpload = constants.data;
-        console.log(newUpload);
         return (
             <div className="row">
                 <div className="wrap">

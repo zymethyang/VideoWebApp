@@ -3,6 +3,7 @@ import HeaderPage from './pages/headerPage';
 import FooterPage from './pages/footerPage';
 import HomePage from './pages/homePage';
 import ViewPage from './pages/viewPage';
+import PageNotFound from './pages/pageNotFound';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
@@ -13,7 +14,8 @@ class App extends Component {
           <HeaderPage />
           <Switch>
             <Route path='/' exact component={HomePage} />
-            <Route path="/view/:id" component={ViewPage} />
+            <Route path='/view/:title/:id' component={ViewPage} />
+            <Route component={PageNotFound} />
           </Switch>
           <FooterPage />
         </div>
