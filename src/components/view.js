@@ -17,9 +17,11 @@ class View extends Component {
     componentDidUpdate() {
         this.loadMedia();
     }
-    
+
 
     render() {
+        var { related } = this.props;
+        console.log(related);
         return (
             <div className="row">
                 <div className="wrap">
@@ -78,7 +80,7 @@ class View extends Component {
                             </div>
                         </div>
                         <div className="col l4">
-                            {this.renderRelated(data.related)}
+                            {related.items.length > 0 ? this.renderRelated(related) : <div></div>}
                         </div>
                     </div>
                 </div>
@@ -89,17 +91,19 @@ class View extends Component {
     renderRelated = (data) => {
         console.log(data);
         let result = null;
-        result = data.map((value, index) => {
+        result = data.items.map((value, index) => {
             return (
                 <div className="row" key={index}>
-                    <Link to={`/view/${functions.xoa_dau(value.items[0].snippet.title)}/${value.items[0].id}`}>
+                    <Link to={`/view/${functions.xoa_dau(value.snippet.title)}/${value.id.videoId}`} style={{ color: 'inherit' }}>
                         <div className="col l6">
-                            <img src={`https://i.ytimg.com/vi/${value.items[0].id}/mqdefault.jpg`} style={{ width: '100%', height: '100%' }} />
+                            <img src={`https://i.ytimg.com/vi/${value.id.videoId}/mqdefault.jpg`} style={{ width: '100%', height: '100%' }} />
                         </div>
                         <div className="col l6">
-                            <span className="row" style={{ fontSize: 13, fontWeight: 'bold' }}>{value.items[0].snippet.title}</span>
-                            <span className="row" style={{ fontSize: 13 }}>{value.items[0].snippet.channelTitle}</span>
+                            <span className="row" style={{ fontSize: 13, fontWeight: 'bold' }}>{value.snippet.title}</span>
+                            <span className="row" style={{ fontSize: 13 }}>{value.snippet.channelTitle}</span>
+                            {/*
                             <span className="row" style={{ fontSize: 13 }}>{value.items[0].statistics.viewCount} Views</span>
+                            */}
                         </div>
                     </Link>
                 </div >
@@ -111,7 +115,8 @@ class View extends Component {
 
 const mapStateToProps = state => {
     return {
-        player: state.player
+        player: state.player,
+        related: state.related
     }
 }
 

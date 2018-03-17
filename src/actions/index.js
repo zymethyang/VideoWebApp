@@ -1,7 +1,9 @@
 import * as Type from '../constants/ActionTypes';
 import callApi from '../utils/callAPI';
 import syncData from '../utils/syncData';
-
+import getRelated from '../utils/getRelated';
+import trendingAPI from '../utils/trendingAPI';
+import trendingCategory from '../utils/trendingCategory';
 
 export const get_player = (id) => {
     return dispatch => {
@@ -17,174 +19,112 @@ export const dispatch_player = (data) => {
         player: data
     }
 }
-/*
-export const register = ({ email, password, teacher = false, img, name, course }) => {
+
+export const get_newest_video = () => {
     return dispatch => {
-
-    }
-}
-
-export const login = ({ email, password }) => {
-    return dispatch => {
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(data => {
-                dispatch(loginDispatch(data));
-            })
-    }
-}
-
-export const loginDispatch = (data) => {
-    return {
-        users: data,
-        type: Type.LOGIN
-    }
-}
-
-export const getToken = () => {
-    return dispatch => {
-        var user = firebase.auth().onAuthStateChanged(user => {
-            dispatch(dispatchToken(user.pa));
-        });
-    }
-}
-
-export const dispatchToken = (data) => {
-    return {
-        type: Type.GET_TOKEN,
-        token: data
-    }
-}
-
-export const logout = () => {
-    return dispatch => {
-        firebase.auth().signOut().then(data => {
-            dispatch(logoutDispatch(data));
+        syncData('video/get/8').then(res => {
+            dispatch(dispatch_newest_video(res.data));
         })
     }
 }
 
-export const logoutDispatch = (data) => {
+export const dispatch_newest_video = (data) => {
     return {
-        type: Type.LOGOUT,
-        users: data
+        type: Type.GET_NEWES_VIDEO,
+        newest: data
     }
 }
 
-
-export const getDetailUser = (token) => {
+export const get_related_video = (id) => {
     return dispatch => {
-        return syncData(`user`, 'GET', null, token).then(res => {
-            dispatch(dispatchDetailUser(res.data));
+        getRelated(id).then(res => {
+            dispatch(dispatch_related_video(res.data));
         })
     }
 }
 
-export const dispatchDetailUser = (data) => {
+export const dispatch_related_video = (data) => {
     return {
-        type: Type.GET_DETAIL_USER,
-        detail: data
+        type: Type.GET_RELATED_VIDEO,
+        related: data
     }
 }
 
-const exportImage = (url) => {
-    return new Promise((resolve, reject) => {
-        var storageRef = firebase.storage().ref(url);
-        storageRef.getDownloadURL().then(link => {
-            resolve(link);
-        })
-    })
-}
-
-export const getCourseByUser = (data, token) => {
+export const get_trending_video = () => {
     return dispatch => {
-        return syncData(`course/id`, 'POST', data, token).then(res => {
-
-            var promise = new Promise((resolve, reject) => {
-                res.data.map(course => {
-                    exportImage(course.image).then(image => {
-                        course.image = image
-                    })
-                    return course
-                })
-                resolve(true);
-            })
-
-            promise.then(() => {
-                setTimeout(() => {
-                    dispatch(dispatchCourseByUser(res.data));
-                }, 1000)
-            })
+        trendingAPI().then(res => {
+            dispatch(dispatch_trending_video(res.data))
         })
     }
 }
 
-export const dispatchCourseByUser = (data) => {
+export const dispatch_trending_video = (data) => {
     return {
-        type: Type.GET_COURSE_BY_USER,
-        course: data
+        type: Type.GET_TRENDING_VIDEO,
+        trending: data
     }
 }
 
-export const postCourse = (data, token) => {
+export const get_trending_music = () => {
     return dispatch => {
-        return syncData(`course`, 'POST', data, token).then(res => {
-            dispatch(dispatchPostCourse(res.data));
+        trendingCategory('10').then(res => {
+            dispatch(dispatch_trending_music(res.data));
         })
     }
 }
 
-export const dispatchPostCourse = (data) => {
+export const dispatch_trending_music = (data) => {
     return {
-        type: Type.ADD_COURSE,
-        data: data
+        type: Type.GET_TRENDING_MUSIC,
+        music: data
     }
 }
 
-export const postDocument = (data, token) => {
+
+export const get_trending_movie = () => {
     return dispatch => {
-        return syncData(`course/add/document`, 'POST', data, token).then(res => {
-            dispatch(disptachDocument(res.data));
+        trendingCategory('1').then(res_1 => {
+            dispatch(dispatch_trending_movie(res_1.data));
         })
     }
 }
 
-export const disptachDocument = (data) => {
+export const dispatch_trending_movie = (data) => {
     return {
-        type: Type.ADD_DOCUMENT,
-        data: data
+        type: Type.GET_TRENDING_MOVIE,
+        movie: data
     }
 }
 
 
-
-export const getCourseWithID = (data, token) => {
+export const get_trending_game = () => {
     return dispatch => {
-        return syncData(`course/id`, 'POST', data, token).then(res => {
-            if (res.data[0]) {
-                var promise = new Promise((resolve, reject) => {
-                    res.data[0].document.map(doc => {
-                        exportImage(doc.link).then(link => {
-                            doc.link = link
-                        })
-                        return doc;
-                    })
-                    resolve(true);
-                })
-
-                promise.then(() => {
-                    setTimeout(() => {
-                        dispatch(dispatchCourseWithID(res.data[0]));
-                    }, 1000)
-                })
-            }
+        trendingCategory('20').then(res_1 => {
+            dispatch(dispatch_trending_game(res_1.data));
         })
     }
 }
 
-export const dispatchCourseWithID = (data) => {
+export const dispatch_trending_game = (data) => {
     return {
-        type: Type.GET_COURSE_WITH_ID,
-        document: data
+        type: Type.GET_TRENDING_GAME,
+        game: data
     }
 }
-*/
+
+
+
+export const get_trending_sport = () => {
+    return dispatch => {
+        trendingCategory('17').then(res_1 => {
+            dispatch(dispatch_trending_sport(res_1.data));
+        })
+    }
+}
+
+export const dispatch_trending_sport = (data) => {
+    return {
+        type: Type.GET_TRENDING_SPORT,
+        sport: data
+    }
+}

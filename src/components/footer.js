@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 class Footer extends Component {
     render() {
         return (
+            <div>
+
+            </div>
+            /*
             <footer className="page-footer">
                 <div className="container">
                     <div className="row">
@@ -28,7 +32,7 @@ class Footer extends Component {
                     </div>
                 </div>
             </footer>
-
+            */
         );
     }
 }
