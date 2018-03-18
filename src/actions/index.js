@@ -4,6 +4,7 @@ import syncData from '../utils/syncData';
 import getRelated from '../utils/getRelated';
 import trendingAPI from '../utils/trendingAPI';
 import trendingCategory from '../utils/trendingCategory';
+import searchAPI from '../utils/searchAPI';
 
 export const get_player = (id) => {
     return dispatch => {
@@ -126,5 +127,23 @@ export const dispatch_trending_sport = (data) => {
     return {
         type: Type.GET_TRENDING_SPORT,
         sport: data
+    }
+}
+
+
+
+
+export const get_search = (key) => {
+    return dispatch => {
+        searchAPI(key).then(res_1 => {
+            dispatch(dispatch_search(res_1.data));
+        })
+    }
+}
+
+export const dispatch_search = (data) => {
+    return {
+        type: Type.GET_SEARCH,
+        search: data
     }
 }

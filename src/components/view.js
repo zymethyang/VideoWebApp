@@ -16,12 +16,18 @@ class View extends Component {
     }
     componentDidUpdate() {
         this.loadMedia();
+        { this.props.player.items.length > 0 ? window.$('title').html(this.props.player.items[0].snippet.title) : 'Đang tải dữ liệu' }
     }
+
+    componentDidMount() {
+        { this.props.player.items.length > 0 ? window.$('title').html(this.props.player.items[0].snippet.title) : 'Đang tải dữ liệu' }
+    }
+
+
 
 
     render() {
         var { related } = this.props;
-        console.log(related);
         return (
             <div className="row">
                 <div className="wrap">
@@ -89,7 +95,6 @@ class View extends Component {
     }
 
     renderRelated = (data) => {
-        console.log(data);
         let result = null;
         result = data.items.map((value, index) => {
             return (

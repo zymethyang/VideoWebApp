@@ -7,6 +7,7 @@ import music from './music';
 import movie from './movie';
 import game from './game';
 import sport from './sport';
+import search from './search';
 
 const appReducers = combineReducers({
     player: player,
@@ -16,7 +17,8 @@ const appReducers = combineReducers({
     music: music,
     movie: movie,
     game: game,
-    sport: sport
+    sport: sport,
+    search: search
 });
 
 export default appReducers;

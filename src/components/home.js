@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 import * as act from '../actions/index';
 
 class Home extends Component {
+    componentDidMount() {
+    
+    }
     render() {
         var { trending, music, movie, game, sport } = this.props;
 
